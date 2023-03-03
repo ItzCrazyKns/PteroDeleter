@@ -21,7 +21,7 @@ const server = async () => {
         }
     }).then(response => {
             if(response.status == 204) {
-                console.log('Successfuly Deleted Server ' + json.data[i].attributes.name)
+                console.log('Successfuly Deleted Server ' + json.data[i].attributes.name + '🗑️')
             } else {
                 console.log("An Error Has Occured While Deleting Server " + json.data[i].attributes.name)
               console.log(response.json())
