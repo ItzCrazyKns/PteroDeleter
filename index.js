@@ -7,26 +7,27 @@ const server = async () => {
   "headers": {
     "Accept": "application/json",
     "Content-Type": "application/json",
-    "Authorizaticon": "Bearer " + config.pterodactyl.apikey
+    "Authorization": "Bearer " + config.pterodactyl.apikey
   }
 }).then(response => response.json())
 .then(json => {
     for(let i = 0; i < json.data.length; i++) {
-       fetch(config.pterodactyl.domain + "/api/application/servers" + json.data[i].attributes.id + "/force", {
+       fetch(config.pterodactyl.domain + "/api/application/servers/" + json.data[i].attributes.id + "/force", {
             "method": "DELETE",
             "headers": {
               "Accept": "application/json",
               "Content-Type": "application/json",
-              "Authorizaticon": "Bearer " + config.pterodactyl.apikey
-        }.then(response => {
-            if(response.status == 200) {
+              "Authorization": "Bearer " + config.pterodactyl.apikey
+        }
+    }).then(response => {
+            if(response.status == 204) {
                 console.log('Successfuly Deleted Server ' + json.data[i].attributes.name)
             } else {
                 console.log("An Error Has Occured While Deleting Server " + json.data[i].attributes.name)
+              console.log(response.json())
             }
         })
     }
-  )}
   })
 }
 
